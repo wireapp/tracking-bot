@@ -1,0 +1,48 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: ${HTTP_PORT:-8090}
+
+  adminConnectors:
+    - type: http
+      port: ${ADMIN_PORT:-8091}
+
+  requestLog:
+    appenders:
+      - type: console
+        filterFactories:
+          - type: status-filter-factory
+
+logging:
+  level: INFO
+  loggers:
+    "com.wire.bots.logger": ${LOG_LEVEL:-INFO}
+
+apiHost: ${WIRE_API_HOST:-}
+wsHost: ${WIRE_WSS:-}
+
+  #userMode:
+  #  email: sniffer@aves.com
+  #  password: Qwerty123!
+  #  sync: false
+
+database:
+  driverClass: ${DB_DRIVER:-org.postgresql.Driver}
+  url: ${DB_URL:-jdbc:postgresql://localhost/tracking}
+  user: ${DB_USER:-}
+  password: ${DB_PASSWORD:-}
+
+jerseyClient:
+  timeout: 60s
+  connectionTimeout: 20s
+  connectionRequestTimeout: 20s
+  keepAlive: 0ms
+  retries: 3
+  userAgent: tracker
+
+  tls:
+    protocol: TLSv1.2
+    provider: SunJSSE
+    supportedProtocols:
+      - TLSv1.1
+      - TLSv1.2
