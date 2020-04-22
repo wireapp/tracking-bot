@@ -37,10 +37,9 @@ docker build -t $DOCKER_USERNAME/tracking-bot:latest .
 
 ## Example of Docker run command
 ```
-docker run \ 
+docker run \    
+-e SERVICE_TOKEN='secret' \
 -e DB_URL='jdbc:postgresql://docker.for.mac.localhost/tracker' \
--e DB_USER='postgres' \ 
--e DB_PASSWORD='secret' \
 -p 80:8080 \
 --name tracker --rm $DOCKER_USERNAME/tracking-bot:latest
 ```
