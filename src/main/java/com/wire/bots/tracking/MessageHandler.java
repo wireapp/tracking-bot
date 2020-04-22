@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wire.bots.sdk.MessageHandlerBase;
 import com.wire.bots.sdk.WireClient;
 import com.wire.bots.sdk.models.*;
+import com.wire.bots.sdk.server.model.NewBot;
 import com.wire.bots.sdk.server.model.SystemMessage;
 import com.wire.bots.sdk.tools.Logger;
 import com.wire.bots.tracking.DAO.EventsDAO;
@@ -243,6 +244,10 @@ public class MessageHandler extends MessageHandlerBase {
         String type = "conversation.otr-message-add.new-ping";
 
         persist(convId, userId, botId, messageId, type, msg);
+    }
+
+    public String getName(NewBot newBot) {
+        return "Verified";
     }
 
     private void persist(UUID convId, UUID senderId, UUID userId, UUID msgId, String type, Object msg) throws RuntimeException {

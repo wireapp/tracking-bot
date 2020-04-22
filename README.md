@@ -45,4 +45,4 @@ docker run \
 ```
 
 ## Start the server locally:
-java -jar target/tracking.jar server tracking.yaml
+java -Ddw.serviceToken='SjeGCoSqWRljnygV_stBh6_l' -jar target/tracking.jar server tracking.yaml
