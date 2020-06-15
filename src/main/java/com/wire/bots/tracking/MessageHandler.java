@@ -186,7 +186,6 @@ public class MessageHandler extends MessageHandlerBase {
 
                     if (Tools.verify(pdf, cms)) {
                         client.sendReaction(messageId, "❤️");
-                        client.sendReaction(pdfMessage.getMessageId(), "❤️");
                         Logger.info("Signature verified. %s", msg.getName());
                         break;
                     }
