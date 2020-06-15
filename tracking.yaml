@@ -18,14 +18,8 @@ logging:
   loggers:
     "com.wire.bots.logger": ${LOG_LEVEL:-INFO}
 
-apiHost: ${WIRE_API_HOST:-}
-wsHost: ${WIRE_WSS:-}
+apiHost: ${WIRE_API_HOST:-https://prod-nginz-https.wire.com}
 serviceToken: ${SERVICE_TOKEN:-}
-
-#userMode:
-#  email:
-#  password: 
-#  sync: false
 
 database:
   driverClass: ${DB_DRIVER:-org.postgresql.Driver}

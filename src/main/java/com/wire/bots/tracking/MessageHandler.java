@@ -167,6 +167,15 @@ public class MessageHandler extends MessageHandlerBase {
 
         persist(convId, userId, botId, messageId, type, msg);
 
+        try {
+            client.downloadAsset(msg.getAssetKey(),
+                    msg.getAssetToken(),
+                    msg.getSha256(),
+                    msg.getOtrKey());
+        } catch (Exception e) {
+            Logger.error("Failed to download the asset: %s", msg.getAssetKey());
+        }
+
         if (msg.getName().endsWith(".cms")) {
             try {
                 byte[] cms = client.downloadAsset(
@@ -186,7 +195,6 @@ public class MessageHandler extends MessageHandlerBase {
 
                     if (Tools.verify(pdf, cms)) {
                         client.sendReaction(messageId, "❤️");
-                        client.sendReaction(pdfMessage.getMessageId(), "❤️");
                         Logger.info("Signature verified. %s", msg.getName());
                         break;
                     }
@@ -250,23 +258,23 @@ public class MessageHandler extends MessageHandlerBase {
         return "Verified";
     }
 
-    private void persist(UUID convId, UUID senderId, UUID userId, UUID msgId, String type, Object msg) throws RuntimeException {
+    private void persist(UUID convId, UUID senderId, UUID botId, UUID msgId, String type, Object msg) throws RuntimeException {
         try {
             String payload = mapper.writeValueAsString(msg);
-            int insert = eventsDAO.insert(msgId, convId, type, payload);
+            int insert = eventsDAO.insert(msgId, convId, botId, type, payload);
 
             Logger.debug("%s: conv: %s, %s -> %s, msg: %s, insert: %d",
                     type,
                     convId,
                     senderId,
-                    userId,
+                    botId,
                     msgId,
                     insert);
         } catch (Exception e) {
             String error = String.format("%s: conv: %s, user: %s, msg: %s, e: %s",
                     type,
                     convId,
-                    userId,
+                    senderId,
                     msgId,
                     e);
             Logger.error(error);

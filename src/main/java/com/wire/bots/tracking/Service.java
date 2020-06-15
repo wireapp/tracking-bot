@@ -17,16 +17,20 @@
 
 package com.wire.bots.tracking;
 
+import com.github.mtakaki.dropwizard.admin.AdminResourceBundle;
 import com.wire.bots.sdk.MessageHandlerBase;
 import com.wire.bots.sdk.Server;
 import com.wire.bots.tracking.DAO.EventsDAO;
 import com.wire.bots.tracking.model.Config;
+import com.wire.bots.tracking.resources.AssetsResource;
+import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import java.security.Security;
 
 public class Service extends Server<Config> {
+    private final AdminResourceBundle admin = new AdminResourceBundle();
 
     public static void main(String[] args) throws Exception {
         new Service().run(args);
@@ -41,5 +45,21 @@ public class Service extends Server<Config> {
     @Override
     protected void initialize(Config config, Environment env) {
         Security.addProvider(new BouncyCastleProvider());
+    }
+
+    @Override
+    public void initialize(Bootstrap<Config> bootstrap) {
+        super.initialize(bootstrap);
+
+        bootstrap.addBundle(admin);
+    }
+
+    @Override
+    protected void onRun(Config config, Environment env) {
+        final AssetsResource resource = new AssetsResource(getClient()
+                , getJdbi()
+                , env.getObjectMapper()
+                , getStorageFactory());
+        admin.getJerseyEnvironment().register(resource);
     }
 }

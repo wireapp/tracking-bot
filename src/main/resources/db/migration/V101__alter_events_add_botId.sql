@@ -1,0 +1,2 @@
+ALTER TABLE Events ADD COLUMN botId UUID;
+
