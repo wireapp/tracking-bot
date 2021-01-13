@@ -1,7 +1,7 @@
 package com.wire.bots.tracking;
 
-import com.wire.bots.sdk.models.AttachmentMessage;
-import com.wire.bots.sdk.tools.Logger;
+import com.wire.xenon.models.AttachmentMessage;
+import com.wire.xenon.tools.Logger;
 import org.bouncycastle.cms.*;
 
 import java.nio.ByteBuffer;

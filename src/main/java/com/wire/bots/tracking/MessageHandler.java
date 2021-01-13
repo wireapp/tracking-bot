@@ -1,13 +1,14 @@
 package com.wire.bots.tracking;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wire.bots.sdk.MessageHandlerBase;
-import com.wire.bots.sdk.WireClient;
-import com.wire.bots.sdk.models.*;
-import com.wire.bots.sdk.server.model.NewBot;
-import com.wire.bots.sdk.server.model.SystemMessage;
-import com.wire.bots.sdk.tools.Logger;
 import com.wire.bots.tracking.DAO.EventsDAO;
+import com.wire.xenon.MessageHandlerBase;
+import com.wire.xenon.WireClient;
+import com.wire.xenon.assets.Reaction;
+import com.wire.xenon.backend.models.NewBot;
+import com.wire.xenon.backend.models.SystemMessage;
+import com.wire.xenon.models.*;
+import com.wire.xenon.tools.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -185,8 +186,8 @@ public class MessageHandler extends MessageHandlerBase {
                     );
 
                     if (Tools.verify(pdf, cms)) {
-                        client.sendReaction(messageId, "❤️");
-                        client.sendReaction(pdfMessage.getMessageId(), "❤️");
+                        client.send(new Reaction(messageId, "❤️"));
+                        client.send(new Reaction(pdfMessage.getMessageId(), "❤️"));
                         Logger.info("Signature verified. %s", msg.getName());
                         break;
                     }

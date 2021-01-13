@@ -18,13 +18,7 @@
 
 package com.wire.bots.tracking.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wire.bots.sdk.Configuration;
-
-import javax.validation.constraints.NotNull;
+import com.wire.lithium.Configuration;
 
 public class Config extends Configuration {
-    @JsonProperty
-    @NotNull
-    public String serviceToken;
 }
