@@ -9,29 +9,26 @@ server:
 
   requestLog:
     appenders:
-      - type: console
+      - type: ${APPENDER_TYPE:-console}
         filterFactories:
           - type: status-filter-factory
 
 logging:
   level: INFO
+  appenders:
+    - type: ${APPENDER_TYPE:-console}
   loggers:
     "com.wire.bots.logger": ${LOG_LEVEL:-INFO}
 
-apiHost: ${WIRE_API_HOST:-}
-wsHost: ${WIRE_WSS:-}
-serviceToken: ${SERVICE_TOKEN:-}
+apiHost: ${WIRE_API_HOST:-https://staging-nginz-https.zinfra.io}
+token: ${SERVICE_TOKEN:-}
 
-#userMode:
-#  email:
-#  password: 
-#  sync: false
 
 database:
   driverClass: ${DB_DRIVER:-org.postgresql.Driver}
-  url: ${DB_URL:-jdbc:postgresql://localhost/tracking}
-  user: ${DB_USER:-}
-  password: ${DB_PASSWORD:-}
+  url: ${DB_URL:-jdbc:postgresql://localhost:5432/bot}
+  user: ${DB_USER:-bot}
+  password: ${DB_PASSWORD:-bot}
 
 jerseyClient:
   timeout: 60s

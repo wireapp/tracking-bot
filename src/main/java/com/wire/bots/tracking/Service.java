@@ -17,10 +17,10 @@
 
 package com.wire.bots.tracking;
 
-import com.wire.bots.sdk.MessageHandlerBase;
-import com.wire.bots.sdk.Server;
 import com.wire.bots.tracking.DAO.EventsDAO;
 import com.wire.bots.tracking.model.Config;
+import com.wire.lithium.Server;
+import com.wire.xenon.MessageHandlerBase;
 import io.dropwizard.setup.Environment;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
